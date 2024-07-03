@@ -334,8 +334,12 @@ class Infrared:
     ir_format = FORMAT_UNKNOWN
 
     # codeが短いか偶数の場合はエラーとする
-    if len(code) < 10 or len(code) // 2 == 0:
-      return FORMAT_UNKNOWN, []
+    if len(code) < 10:
+        print("エラー: 赤外線データの長さが短すぎます。")
+        return FORMAT_UNKNOWN, []
+    if len(code) % 2 == 0:
+        print("エラー: 赤外線データの長さが偶数です。")
+        return FORMAT_UNKNOWN, []
 
     # Leader
     if self._cl(code[0], _T_AEHA * 8) and self._cl(code[1], _T_AEHA * 4):
